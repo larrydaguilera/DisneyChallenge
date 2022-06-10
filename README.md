@@ -1,2 +1,2 @@
-# DisneyChallenge
+# Disney-challenge
 Challenge Java Backend
