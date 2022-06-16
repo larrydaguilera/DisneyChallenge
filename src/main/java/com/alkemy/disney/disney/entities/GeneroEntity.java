@@ -24,5 +24,9 @@ public class GeneroEntity {
 
     private String imagen;
 
+    @OneToMany(mappedBy = "genero")
+    Set<PeliculaOSerieEntity> peliculaOSerieList;
+
+
 
 }
