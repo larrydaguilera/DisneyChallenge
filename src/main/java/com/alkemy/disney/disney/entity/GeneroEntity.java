@@ -1,12 +1,9 @@
-package com.alkemy.disney.disney.entities;
+package com.alkemy.disney.disney.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.GeneratorType;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 @Entity
