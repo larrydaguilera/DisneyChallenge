@@ -1,8 +1,8 @@
 package com.alkemy.disney.disney.controller;
 
 import com.alkemy.disney.disney.dto.GeneroDTO;
-import com.alkemy.disney.disney.service.GeneroService;
-import com.alkemy.disney.disney.service.impl.GeneroServiceImpl;
+import com.alkemy.disney.disney.dto.PeliculaDTO;
+import com.alkemy.disney.disney.service.PeliculaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,23 +11,23 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("generos")
+@RequestMapping("Movies")
 
-public class GeneroController {
+public class PeliculaController {
 
     @Autowired
-    private GeneroService generoService;
+    private PeliculaService peliculaService;
 
     @PostMapping
-    public ResponseEntity<GeneroDTO> save(@RequestBody GeneroDTO genero){
-        GeneroDTO generoGuardado = generoService.save(genero);
-        return ResponseEntity.status(HttpStatus.CREATED).body(generoGuardado);
+    public ResponseEntity<PeliculaDTO> save(@RequestBody PeliculaDTO pelicula){
+        PeliculaDTO peliculaGuardada = peliculaService.save(pelicula);
+        return ResponseEntity.status(HttpStatus.CREATED).body(peliculaGuardada);
     }
 
 
     @GetMapping
-    public ResponseEntity<List<GeneroDTO>> getAll() {
-        List<GeneroDTO> generos = generoService.getAllGeneros();
-        return ResponseEntity.ok().body(generos);
+    public ResponseEntity<List<PeliculaDTO>> getAll() {
+        List<PeliculaDTO> peliculas = peliculaService.getAllPeliculas();
+        return ResponseEntity.ok().body(peliculas);
     }
 }

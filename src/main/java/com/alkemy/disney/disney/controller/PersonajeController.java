@@ -1,8 +1,8 @@
 package com.alkemy.disney.disney.controller;
 
-import com.alkemy.disney.disney.dto.GeneroDTO;
-import com.alkemy.disney.disney.service.GeneroService;
-import com.alkemy.disney.disney.service.impl.GeneroServiceImpl;
+
+import com.alkemy.disney.disney.dto.PersonajeDTO;
+import com.alkemy.disney.disney.service.PersonajeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,23 +11,23 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("generos")
+@RequestMapping("characters")
 
-public class GeneroController {
+public class PersonajeController {
 
     @Autowired
-    private GeneroService generoService;
+    private PersonajeService personajeService;
 
     @PostMapping
-    public ResponseEntity<GeneroDTO> save(@RequestBody GeneroDTO genero){
-        GeneroDTO generoGuardado = generoService.save(genero);
-        return ResponseEntity.status(HttpStatus.CREATED).body(generoGuardado);
+    public ResponseEntity<PersonajeDTO> save(@RequestBody PersonajeDTO personaje){
+        PersonajeDTO personajeGuardado = personajeService.save(personaje);
+        return ResponseEntity.status(HttpStatus.CREATED).body(personajeGuardado);
     }
 
 
     @GetMapping
-    public ResponseEntity<List<GeneroDTO>> getAll() {
-        List<GeneroDTO> generos = generoService.getAllGeneros();
-        return ResponseEntity.ok().body(generos);
+    public ResponseEntity<List<PersonajeDTO>> getAll() {
+        List<PersonajeDTO> personajes = personajeService.getAllPersonajes();
+        return ResponseEntity.ok().body(personajes);
     }
 }

@@ -1,11 +1,12 @@
 package com.alkemy.disney.disney.service;
 
 import com.alkemy.disney.disney.dto.GeneroDTO;
+import com.alkemy.disney.disney.dto.PersonajeDTO;
 
 import java.util.List;
 
-public interface GeneroService {
+public interface PersonajeService {
 
-    GeneroDTO save(GeneroDTO dto);
-    List<GeneroDTO> getAllGeneros();
+    PersonajeDTO save(PersonajeDTO dto);
+    List<PersonajeDTO> getAllPersonajes();
 }

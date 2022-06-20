@@ -2,34 +2,36 @@ package com.alkemy.disney.disney.mapper;
 
 
 import com.alkemy.disney.disney.dto.GeneroDTO;
+import com.alkemy.disney.disney.dto.PeliculaDTO;
 import com.alkemy.disney.disney.entity.GeneroEntity;
+import com.alkemy.disney.disney.entity.PeliculaEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class GeneroMapper {
+public class PeliculaMapper {
 
-    public GeneroEntity generoDTO2Entity(GeneroDTO dto){
-        GeneroEntity generoEntity = new GeneroEntity();
-        generoEntity.setNombre(dto.getNombre());
-        generoEntity.setImagen(dto.getImagen());
-        return generoEntity;
+    public PeliculaEntity peliculaDTO2Entity(PeliculaDTO dto){
+        PeliculaEntity peliculaEntity = new PeliculaEntity();
+        peliculaEntity.setTitulo(dto.getTitulo());
+        peliculaEntity.setImagen(dto.getImagen());
+        return peliculaEntity;
     }
 
-    public GeneroDTO generoEntity2DTO(GeneroEntity entity) {
-        GeneroDTO dto = new GeneroDTO();
+    public PeliculaDTO peliculaEntity2DTO(PeliculaEntity entity) {
+        PeliculaDTO dto = new PeliculaDTO();
         dto.setId(entity.getId());
-        dto.setNombre(entity.getNombre());
+        dto.setTitulo(entity.getTitulo());
         dto.setImagen(entity.getImagen());
         return dto;
     }
 
-    public List<GeneroDTO> generoEntityList2DTOList(List<GeneroEntity> entites) {
-        List<GeneroDTO> dtos = new ArrayList<>();
-        for (GeneroEntity entity : entites) {
-            dtos.add(this.generoEntity2DTO(entity));
+    public List<PeliculaDTO> peliculaEntityList2DTOList(List<PeliculaEntity> entites) {
+        List<PeliculaDTO> dtos = new ArrayList<>();
+        for (PeliculaEntity entity : entites) {
+            dtos.add(this.peliculaEntity2DTO(entity));
         }
         return dtos;
     }
