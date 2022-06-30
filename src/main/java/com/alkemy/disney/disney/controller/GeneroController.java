@@ -1,6 +1,7 @@
 package com.alkemy.disney.disney.controller;
 
 import com.alkemy.disney.disney.dto.GeneroDTO;
+import com.alkemy.disney.disney.dto.PersonajeDTO;
 import com.alkemy.disney.disney.service.GeneroService;
 import com.alkemy.disney.disney.service.impl.GeneroServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,12 @@ public class GeneroController {
     public ResponseEntity<GeneroDTO> save(@RequestBody GeneroDTO genero){
         GeneroDTO generoGuardado = generoService.save(genero);
         return ResponseEntity.status(HttpStatus.CREATED).body(generoGuardado);
+    }
+
+    @GetMapping(value = "/getGenero/{id}")
+    public ResponseEntity<GeneroDTO> getById(@PathVariable Long id){
+        GeneroDTO genero = generoService.getById(id);
+        return ResponseEntity.ok().body(genero);
     }
 
 

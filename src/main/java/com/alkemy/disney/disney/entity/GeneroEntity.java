@@ -1,9 +1,11 @@
 package com.alkemy.disney.disney.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -21,8 +23,9 @@ public class GeneroEntity {
 
     private String imagen;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "genero")
-    Set<PeliculaEntity> peliculasList;
+    List<PeliculaEntity> peliculasList;
 
 
 

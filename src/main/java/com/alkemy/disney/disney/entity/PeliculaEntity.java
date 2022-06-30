@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -16,7 +17,7 @@ import java.util.Set;
 @Getter
 @Setter
 
-public class PeliculaEntity {
+public class PeliculaEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -32,21 +33,6 @@ public class PeliculaEntity {
 
     @Value("1")
     private Integer calificacion;
-
-    //@ManyToMany(mappedBy = "personaje", cascade = CascadeType.ALL)
-
-    @ManyToMany(
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            }
-    )
-    @JoinTable(
-            name = "personaje_pelicula",
-            joinColumns = @JoinColumn(name = "pelicula_id"),
-            inverseJoinColumns = @JoinColumn(name = "personaje_id")
-    )
-    private List<PersonajeEntity> personajes = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn (name = "genero_id", insertable = false, updatable = false)

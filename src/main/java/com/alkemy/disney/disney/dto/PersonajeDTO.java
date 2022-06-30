@@ -2,6 +2,7 @@ package com.alkemy.disney.disney.dto;
 
 import com.alkemy.disney.disney.entity.GeneroEntity;
 import com.alkemy.disney.disney.entity.PeliculaEntity;
+import com.alkemy.disney.disney.entity.PeliculaPersonaje;
 import lombok.Getter;
 import lombok.Setter;
 

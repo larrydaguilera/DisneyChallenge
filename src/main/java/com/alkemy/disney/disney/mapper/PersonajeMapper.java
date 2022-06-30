@@ -6,7 +6,10 @@ import com.alkemy.disney.disney.dto.PeliculaDTO;
 import com.alkemy.disney.disney.dto.PersonajeDTO;
 import com.alkemy.disney.disney.entity.GeneroEntity;
 import com.alkemy.disney.disney.entity.PeliculaEntity;
+import com.alkemy.disney.disney.entity.PeliculaPersonaje;
 import com.alkemy.disney.disney.entity.PersonajeEntity;
+import com.alkemy.disney.disney.repository.PeliculaPersonajeRepository;
+import com.alkemy.disney.disney.repository.PeliculaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,6 +22,12 @@ public class PersonajeMapper {
 
     @Autowired
     private PeliculaMapper peliculaMapper;
+    @Autowired
+   private PeliculaPersonajeRepository peliculaPersonajeRepository;
+    @Autowired
+    private PeliculaRepository peliculaRepository;
+
+
     public PersonajeEntity personajeDTO2Entity(PersonajeDTO dto){
         PersonajeEntity personajeEntity = new PersonajeEntity();
         personajeEntity.setNombre(dto.getNombre());
@@ -26,12 +35,6 @@ public class PersonajeMapper {
         personajeEntity.setEdad(dto.getEdad());
         personajeEntity.setPeso(dto.getPeso());
         personajeEntity.setHistoria(dto.getHistoria());
-        /*List<PeliculaEntity> peliculas1 = new ArrayList<>();
-        peliculas1 = dto.getPeliculas();
-        personajeEntity.setPeliculas(peliculas1)*/;
-        for(PeliculaEntity pelicula: dto.getPeliculas()){
-            personajeEntity.getPeliculas().add(pelicula);
-        }
         return personajeEntity;
     }
 
@@ -43,12 +46,12 @@ public class PersonajeMapper {
         dto.setEdad(entity.getEdad());
         dto.setPeso(entity.getPeso());
         dto.setHistoria(entity.getHistoria());
-        /*List<PeliculaEntity> peliculas1 = new ArrayList<>();
-        peliculas1 = entity.getPeliculas();
-        dto.setPeliculas(peliculas1);*/
-        for(PeliculaEntity pelicula: entity.getPeliculas()){
+        List<PeliculaEntity> peliculas1 = new ArrayList<>();
+        /*peliculas1 = peliculaRepository.findAllByPersonajeId(entity.getId());
+        dto.setPeliculas(peliculas1);
+        for(PeliculaEntity pelicula: peliculas1){
             dto.getPeliculas().add(pelicula);
-        }
+        }*/
         return dto;
     }
 

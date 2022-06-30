@@ -17,6 +17,9 @@ public class PeliculaMapper {
         PeliculaEntity peliculaEntity = new PeliculaEntity();
         peliculaEntity.setTitulo(dto.getTitulo());
         peliculaEntity.setImagen(dto.getImagen());
+        peliculaEntity.setFechaCreacion(dto.getFechaCreacion());
+        peliculaEntity.setCalificacion(dto.getCalificacion());
+        peliculaEntity.setGeneroId(dto.getGeneroId());
         return peliculaEntity;
     }
 
@@ -25,6 +28,9 @@ public class PeliculaMapper {
         dto.setId(entity.getId());
         dto.setTitulo(entity.getTitulo());
         dto.setImagen(entity.getImagen());
+        dto.setFechaCreacion(entity.getFechaCreacion());
+        dto.setCalificacion(entity.getCalificacion());
+        dto.setGeneroId(entity.getGeneroId());
         return dto;
     }
 
