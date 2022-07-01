@@ -46,12 +46,8 @@ public class PeliculaServiceImpl implements PeliculaService {
     public PeliculaDTO getById(Long id) {
         Optional<PeliculaEntity> pelicula = peliculaRepository.findById(id);
         PeliculaDTO result = peliculaMapper.peliculaEntity2DTO(pelicula.get());
-        List<Long> ids = peliculaPersonajeRepository.findAllByPeliculaId(id);
-        List<PeliculaPersonajeDTO> dtos = peliculaPersonajeMapper.idList2DTOList(ids);
-        List<PersonajeEntity> entities = peliculaPersonajeMapper.peliculaPersonajeDTOList2PersonajeEntityList(dtos);
-        result.setPersonajes(entities);
-        GeneroEntity genero = generoRepository.findById(result.getGeneroId()).get();
-        result.setGenero(genero);
+        result.setPersonajes(checkPersonajesByPeliculaId(id));
+        result.setGenero(checkGeneroByPeliculaId(id));
         return result;
     }
 
@@ -60,14 +56,41 @@ public class PeliculaServiceImpl implements PeliculaService {
         List<PeliculaEntity> entities = peliculaRepository.findAll();
         List<PeliculaDTO> results = peliculaMapper.peliculaEntityList2DTOList(entities);
         for( PeliculaDTO result: results){
-
-            List<Long> ids = peliculaPersonajeRepository.findAllByPeliculaId(result.getId());
-            List<PeliculaPersonajeDTO> dtos = peliculaPersonajeMapper.idList2DTOList(ids);
-            List<PersonajeEntity> entities2 = peliculaPersonajeMapper.peliculaPersonajeDTOList2PersonajeEntityList(dtos);
-            result.setPersonajes(entities2);
+            result.setGenero(checkGeneroByPeliculaId(result.getId()));
+            result.setPersonajes(checkPersonajesByPeliculaId(result.getId()));
         }
         return results;
+
     }
+
+    public PeliculaDTO update(Long id, PeliculaDTO pelicula) {
+        Optional<PeliculaEntity> entity = peliculaRepository.findById(id);
+        PeliculaEntity peliculaActualizada = peliculaMapper.peliculaDTO2Entity(pelicula);
+        if(peliculaActualizada.getImagen() != null){entity.get().setImagen(peliculaActualizada.getImagen());}
+        if(peliculaActualizada.getTitulo() != null){entity.get().setTitulo(peliculaActualizada.getTitulo());}
+        if(peliculaActualizada.getFechaCreacion() != null){entity.get().setFechaCreacion(peliculaActualizada.getFechaCreacion());}
+        if(peliculaActualizada.getCalificacion() != null){entity.get().setCalificacion(peliculaActualizada.getCalificacion());}
+        if(peliculaActualizada.getGeneroId() != null){entity.get().setGeneroId(peliculaActualizada.getGeneroId());}
+        peliculaRepository.save(entity.get());
+        PeliculaDTO result = peliculaMapper.peliculaEntity2DTO(peliculaRepository.getReferenceById(id));
+        result.setPersonajes(checkPersonajesByPeliculaId(result.getId()));
+        result.setGenero(checkGeneroByPeliculaId(result.getGeneroId()));
+        return result;
+    }
+
+    private List<PersonajeEntity> checkPersonajesByPeliculaId(Long id){
+        List<Long> ids = peliculaPersonajeRepository.findAllByPeliculaId(id);
+        List<PeliculaPersonajeDTO> dtos = peliculaPersonajeMapper.idList2DTOList(ids);
+        List<PersonajeEntity> entities = peliculaPersonajeMapper.peliculaPersonajeDTOList2PersonajeEntityList(dtos);
+        return entities;
+    }
+
+    private GeneroEntity checkGeneroByPeliculaId(Long id){
+        GeneroEntity genero = generoRepository.findById(id).get();
+        genero.setPeliculasList(peliculaRepository.findAllByGeneroId(genero.getId()));
+        return genero;
+    }
+
 
 
 }

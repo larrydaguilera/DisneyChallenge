@@ -14,5 +14,5 @@ public interface PeliculaService {
 
     PeliculaDTO getById(Long id);
 
-    //public List<PeliculaPersonaje> getAllbyPersonajeId(Long id);
+    PeliculaDTO update(Long id, PeliculaDTO pelicula);
 }

@@ -37,4 +37,10 @@ public class GeneroController {
         List<GeneroDTO> generos = generoService.getAllGeneros();
         return ResponseEntity.ok().body(generos);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id){
+        this.generoService.delete(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 }

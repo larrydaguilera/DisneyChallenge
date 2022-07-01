@@ -1,5 +1,6 @@
 package com.alkemy.disney.disney.service.impl;
 
+import com.alkemy.disney.disney.dto.PeliculaDTO;
 import com.alkemy.disney.disney.dto.PeliculaPersonajeDTO;
 import com.alkemy.disney.disney.dto.PersonajeDTO;
 import com.alkemy.disney.disney.entity.PeliculaEntity;
@@ -61,9 +62,35 @@ public class PersonajeServiceImpl implements PersonajeService {
     }
 
 
+    public PersonajeDTO update(Long id, PersonajeDTO personaje) {
+        Optional<PersonajeEntity> entity = personajeRepository.findById(id);
+        PersonajeEntity personajeActualizado = personajeMapper.personajeDTO2Entity(personaje);
+        if(personajeActualizado.getEdad() != null){entity.get().setEdad(personajeActualizado.getEdad());}
+        if(personajeActualizado.getNombre() != null){entity.get().setNombre(personajeActualizado.getNombre());}
+        if(personajeActualizado.getImagen() != null){entity.get().setImagen(personajeActualizado.getImagen());}
+        if(personajeActualizado.getPeso() != null){entity.get().setPeso(personajeActualizado.getPeso());}
+        if(personajeActualizado.getHistoria() != null){entity.get().setHistoria(personajeActualizado.getHistoria());}
+        personajeRepository.save(entity.get());
+        PersonajeDTO result = personajeMapper.personajeEntity2DTO(personajeRepository.getReferenceById(id));
+        List<Long> ids = peliculaPersonajeRepository.findAllByPersonajeId(id);
+        List<PeliculaPersonajeDTO> dtos = peliculaPersonajeMapper.idList2DTOList(ids);
+        List<PeliculaEntity> entities = peliculaPersonajeMapper.peliculaPersonajeDTOList2PeliculaEntityList(dtos);
+        result.setPeliculas(entities);
+        return result;
+    }
+
+
     public List<PersonajeDTO> getAllPersonajes() {
         List<PersonajeEntity> entites = personajeRepository.findAll();
-        List<PersonajeDTO> result = personajeMapper.personajeEntityList2DTOList(entites);
-        return result;
+        List<PersonajeDTO> results = personajeMapper.personajeEntityList2DTOList(entites);
+        for( PersonajeDTO result: results){
+
+            List<Long> ids = peliculaPersonajeRepository.findAllByPersonajeId(result.getId());
+            List<PeliculaPersonajeDTO> dtos = peliculaPersonajeMapper.idList2DTOList(ids);
+            List<PeliculaEntity> entities2 = peliculaPersonajeMapper.peliculaPersonajeDTOList2PeliculaEntityList(dtos);
+            result.setPeliculas(entities2);
+        }
+
+        return results;
     }
 }

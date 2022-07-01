@@ -27,10 +27,11 @@ public class PersonajeController {
         return ResponseEntity.status(HttpStatus.CREATED).body(personajeGuardado);
     }
 
-    /*@PutMapping
-    public ResponseEntity<PersonajeEntity> update(@Re){
-
-    }*/
+    @PutMapping("/update/{id}")
+    public ResponseEntity<PersonajeDTO> update(@PathVariable Long id, @RequestBody PersonajeDTO personaje){
+        PersonajeDTO result = personajeService.update(id,personaje);
+        return ResponseEntity.ok().body(result);
+    }
 
     @GetMapping("/getCharacters/{id}")
     public ResponseEntity<PersonajeDTO> getById(@PathVariable Long id){
