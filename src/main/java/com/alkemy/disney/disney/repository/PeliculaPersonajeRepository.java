@@ -32,7 +32,7 @@ public interface PeliculaPersonajeRepository extends JpaRepository<PeliculaPerso
             "values(:peliculaId, :personajeId)", nativeQuery = true)
     public Void agregarPersonaje(Long peliculaId, Long personajeId);
 
-    @Query(value="update genero set deleted =1  where pelicula_id= :peliculaId and personaje_id = :personajeId")
+    @Query(value="update genero set deleted = 1  where pelicula_id= :peliculaId and personaje_id = :personajeId", nativeQuery= true)
     public Void eliminarPersonaje(Long peliculaId, Long personajeId);
 
 }
