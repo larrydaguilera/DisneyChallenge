@@ -5,6 +5,7 @@ import com.alkemy.disney.disney.entity.PersonajeEntity;
 import com.sun.xml.bind.v2.model.core.ID;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -15,5 +16,8 @@ import java.util.Optional;
 public interface PersonajeRepository extends JpaRepository<PersonajeEntity, Long> {
 
     List<PersonajeEntity> findAll(Specification<PersonajeEntity> spec);
+
+    @Query(value = "UPDATE personaje p SET p.deleted = 1 where p.id = :id", nativeQuery = true)
+    void deleteByIdPersonaje(Long id);
 
 }

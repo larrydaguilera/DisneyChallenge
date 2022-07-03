@@ -19,6 +19,7 @@ import com.alkemy.disney.disney.repository.specification.PeliculaSpecification;
 import com.alkemy.disney.disney.service.PeliculaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -95,6 +96,7 @@ public class PeliculaServiceImpl implements PeliculaService {
     }
 
 
+   @Transactional
     public PeliculaDTO agregarPersonaje(Long peliculaId, Long personajeId) {
         PeliculaEntity pelicula = peliculaRepository.findById(peliculaId).get();
         PersonajeEntity personaje = personajeRepository.findById(personajeId).get();
@@ -106,6 +108,7 @@ public class PeliculaServiceImpl implements PeliculaService {
 
         return result;
     }
+    @Transactional
     public PeliculaDTO eliminarPersonaje(Long peliculaId, Long personajeId) {
         peliculaPersonajeRepository.eliminarPersonaje(peliculaId,personajeId);
         PeliculaDTO result  = getById(peliculaId);;

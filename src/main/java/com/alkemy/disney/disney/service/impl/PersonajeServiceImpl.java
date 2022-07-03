@@ -26,10 +26,15 @@ public class PersonajeServiceImpl implements PersonajeService {
 
     @Autowired
     private PersonajeMapper personajeMapper;
+    @Autowired
     private PersonajeRepository personajeRepository;
+    @Autowired
     private PeliculaPersonajeRepository peliculaPersonajeRepository;
+    @Autowired
     private PeliculaRepository peliculaRepository;
+    @Autowired
     private PeliculaPersonajeMapper peliculaPersonajeMapper;
+    @Autowired
     private PersonajeSpecification personajeSpecification;
 
 
@@ -102,6 +107,6 @@ public class PersonajeServiceImpl implements PersonajeService {
     }
 
     public void delete(Long id) {
-        this.peliculaRepository.deleteById(id);
+        this.personajeRepository.deleteById(id);
     }
 }

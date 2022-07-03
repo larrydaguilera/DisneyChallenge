@@ -52,7 +52,7 @@ public class PeliculaController {
         return ResponseEntity.ok(peliculas);
     }
 
-    @PostMapping("/{id}/addCharacter/{charactersId}")
+    @PostMapping("/{peliculaId}/addCharacter/{personajeId}")
     public ResponseEntity<PeliculaDTO> addCharactersToMovie(@PathVariable Long peliculaId, @PathVariable Long personajeId) {
         PeliculaDTO result = peliculaService.agregarPersonaje(peliculaId, personajeId);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
@@ -64,9 +64,9 @@ public class PeliculaController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @PostMapping("/{id}/deleteCharacter/{characterId}")
+    @DeleteMapping("/{peliculaId}/deleteCharacter/{personajeId}")
     public ResponseEntity<PeliculaDTO> eliminarPersonaje(@PathVariable Long peliculaId, @PathVariable Long personajeId) {
         PeliculaDTO result = peliculaService.eliminarPersonaje(peliculaId, personajeId);
-        return ResponseEntity.status(HttpStatus.CREATED).body(result);
+        return ResponseEntity.ok().body(result);
     }
 }
