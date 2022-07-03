@@ -1,12 +1,9 @@
 package com.alkemy.disney.disney.mapper;
 
 
-import com.alkemy.disney.disney.dto.GeneroDTO;
-import com.alkemy.disney.disney.dto.PeliculaDTO;
-import com.alkemy.disney.disney.dto.PersonajeDTO;
-import com.alkemy.disney.disney.entity.GeneroEntity;
+import com.alkemy.disney.disney.dto.personaje.PersonajeBasicDTO;
+import com.alkemy.disney.disney.dto.personaje.PersonajeDTO;
 import com.alkemy.disney.disney.entity.PeliculaEntity;
-import com.alkemy.disney.disney.entity.PeliculaPersonaje;
 import com.alkemy.disney.disney.entity.PersonajeEntity;
 import com.alkemy.disney.disney.repository.PeliculaPersonajeRepository;
 import com.alkemy.disney.disney.repository.PeliculaRepository;
@@ -15,7 +12,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Component
 public class PersonajeMapper {
@@ -46,12 +42,6 @@ public class PersonajeMapper {
         dto.setEdad(entity.getEdad());
         dto.setPeso(entity.getPeso());
         dto.setHistoria(entity.getHistoria());
-        List<PeliculaEntity> peliculas1 = new ArrayList<>();
-        /*peliculas1 = peliculaRepository.findAllByPersonajeId(entity.getId());
-        dto.setPeliculas(peliculas1);
-        for(PeliculaEntity pelicula: peliculas1){
-            dto.getPeliculas().add(pelicula);
-        }*/
         return dto;
     }
 
@@ -62,4 +52,20 @@ public class PersonajeMapper {
         }
         return dtos;
     }
+
+    public PersonajeBasicDTO personajeEntity2BasicDTO(PersonajeEntity entity) {
+        PersonajeBasicDTO dto = new PersonajeBasicDTO();
+        dto.setNombre(entity.getNombre());
+        dto.setImagen(entity.getImagen());
+        return dto;
+    }
+
+    public List<PersonajeBasicDTO> personajeEntityList2BasicDTO(List<PersonajeEntity> entities){
+        List<PersonajeBasicDTO> dtos = new ArrayList<>();
+        for (PersonajeEntity entity : entities) {
+            dtos.add(this.personajeEntity2BasicDTO(entity));
+        }
+        return dtos;
+    }
+
 }

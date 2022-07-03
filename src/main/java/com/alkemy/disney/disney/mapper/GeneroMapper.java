@@ -1,7 +1,8 @@
 package com.alkemy.disney.disney.mapper;
 
 
-import com.alkemy.disney.disney.dto.GeneroDTO;
+import com.alkemy.disney.disney.dto.genero.GeneroBasicDTO;
+import com.alkemy.disney.disney.dto.genero.GeneroDTO;
 import com.alkemy.disney.disney.entity.GeneroEntity;
 import org.springframework.stereotype.Component;
 
@@ -32,5 +33,12 @@ public class GeneroMapper {
             dtos.add(this.generoEntity2DTO(entity));
         }
         return dtos;
+    }
+
+    public GeneroBasicDTO generoEntity2BasicDTO(GeneroEntity entity) {
+        GeneroBasicDTO dto = new GeneroBasicDTO();
+        dto.setNombre(entity.getNombre());
+        dto.setImagen(entity.getImagen());
+        return dto;
     }
 }

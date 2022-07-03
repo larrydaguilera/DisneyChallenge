@@ -1,9 +1,7 @@
 package com.alkemy.disney.disney.controller;
 
-import com.alkemy.disney.disney.dto.GeneroDTO;
-import com.alkemy.disney.disney.dto.PersonajeDTO;
+import com.alkemy.disney.disney.dto.genero.GeneroDTO;
 import com.alkemy.disney.disney.service.GeneroService;
-import com.alkemy.disney.disney.service.impl.GeneroServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,6 +36,11 @@ public class GeneroController {
         return ResponseEntity.ok().body(generos);
     }
 
+    @PutMapping("/update/{id}")
+    public ResponseEntity<GeneroDTO> update(@PathVariable Long id, @RequestBody GeneroDTO genero){
+        GeneroDTO result = generoService.update(id,genero);
+        return ResponseEntity.ok().body(result);
+    }
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id){
         this.generoService.delete(id);

@@ -1,8 +1,9 @@
 package com.alkemy.disney.disney.service.impl;
 
-import com.alkemy.disney.disney.dto.PeliculaDTO;
 import com.alkemy.disney.disney.dto.PeliculaPersonajeDTO;
-import com.alkemy.disney.disney.dto.PersonajeDTO;
+import com.alkemy.disney.disney.dto.personaje.PersonajeBasicDTO;
+import com.alkemy.disney.disney.dto.personaje.PersonajeDTO;
+import com.alkemy.disney.disney.dto.personaje.PersonajeFilterDTO;
 import com.alkemy.disney.disney.entity.PeliculaEntity;
 import com.alkemy.disney.disney.entity.PeliculaPersonaje;
 import com.alkemy.disney.disney.entity.PersonajeEntity;
@@ -11,12 +12,12 @@ import com.alkemy.disney.disney.mapper.PersonajeMapper;
 import com.alkemy.disney.disney.repository.PeliculaPersonajeRepository;
 import com.alkemy.disney.disney.repository.PeliculaRepository;
 import com.alkemy.disney.disney.repository.PersonajeRepository;
+import com.alkemy.disney.disney.repository.specification.PersonajeSpecification;
 import com.alkemy.disney.disney.service.PersonajeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,14 +26,12 @@ public class PersonajeServiceImpl implements PersonajeService {
 
     @Autowired
     private PersonajeMapper personajeMapper;
-    @Autowired
     private PersonajeRepository personajeRepository;
-    @Autowired
     private PeliculaPersonajeRepository peliculaPersonajeRepository;
-    @Autowired
     private PeliculaRepository peliculaRepository;
-    @Autowired
     private PeliculaPersonajeMapper peliculaPersonajeMapper;
+    private PersonajeSpecification personajeSpecification;
+
 
     @Transactional
     public PersonajeDTO save(PersonajeDTO dto){
@@ -80,6 +79,14 @@ public class PersonajeServiceImpl implements PersonajeService {
     }
 
 
+    public List<PersonajeBasicDTO> getbyFilters(String nombre, Integer edad, Integer peso, List<Long> peliculas, String orden) {
+        PersonajeFilterDTO filterDTO = new PersonajeFilterDTO(nombre, edad, peso, peliculas, orden);
+        List<PersonajeEntity> entites = personajeRepository.findAll(this.personajeSpecification.getByFilters(filterDTO));
+        List<PersonajeBasicDTO> dtos = personajeMapper.personajeEntityList2BasicDTO(entites);
+        return dtos;
+    }
+
+
     public List<PersonajeDTO> getAllPersonajes() {
         List<PersonajeEntity> entites = personajeRepository.findAll();
         List<PersonajeDTO> results = personajeMapper.personajeEntityList2DTOList(entites);
@@ -92,5 +99,9 @@ public class PersonajeServiceImpl implements PersonajeService {
         }
 
         return results;
+    }
+
+    public void delete(Long id) {
+        this.peliculaRepository.deleteById(id);
     }
 }

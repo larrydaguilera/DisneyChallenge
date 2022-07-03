@@ -21,4 +21,6 @@ public class PeliculaPersonaje implements Serializable {
     @Column(name = "pelicula_id")
     private Long peliculaId;
 
+    private boolean deleted = Boolean.FALSE;
+
 }

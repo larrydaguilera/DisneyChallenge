@@ -25,11 +25,13 @@ public class PersonajeEntity implements Serializable {
 
     private String nombre;
 
-    private Long edad;//años
+    private Integer edad;//años
 
-    private Long peso;// Kg
+    private Integer peso;// Kg
 
     private String historia;
+
+    private boolean deleted = Boolean.FALSE;
 
 
 

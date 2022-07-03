@@ -1,9 +1,8 @@
 package com.alkemy.disney.disney.mapper;
 
 
-import com.alkemy.disney.disney.dto.GeneroDTO;
-import com.alkemy.disney.disney.dto.PeliculaDTO;
-import com.alkemy.disney.disney.entity.GeneroEntity;
+import com.alkemy.disney.disney.dto.pelicula.PeliculaBasicDTO;
+import com.alkemy.disney.disney.dto.pelicula.PeliculaDTO;
 import com.alkemy.disney.disney.entity.PeliculaEntity;
 import org.springframework.stereotype.Component;
 
@@ -38,6 +37,22 @@ public class PeliculaMapper {
         List<PeliculaDTO> dtos = new ArrayList<>();
         for (PeliculaEntity entity : entites) {
             dtos.add(this.peliculaEntity2DTO(entity));
+        }
+        return dtos;
+    }
+
+    public PeliculaBasicDTO peliculaEntity2BasicDTO(PeliculaEntity entity){
+        PeliculaBasicDTO dto = new PeliculaBasicDTO();
+        dto.setTitulo(entity.getTitulo());
+        dto.setFechaCreacion(entity.getFechaCreacion());
+        dto.setImagen(entity.getImagen());
+        return dto;
+    }
+
+    public List<PeliculaBasicDTO> peliculaEntityList2BasicDTO(List<PeliculaEntity> entites) {
+        List<PeliculaBasicDTO> dtos = new ArrayList<>();
+        for (PeliculaEntity entity : entites) {
+            dtos.add(this.peliculaEntity2BasicDTO(entity));
         }
         return dtos;
     }

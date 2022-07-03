@@ -1,4 +1,4 @@
-package com.alkemy.disney.disney.dto;
+package com.alkemy.disney.disney.dto.personaje;
 
 import com.alkemy.disney.disney.entity.PeliculaEntity;
 import lombok.Getter;
@@ -8,10 +8,10 @@ import java.util.List;
 
 @Getter
 @Setter
-public class GeneroDTO {
+public class PersonajeBasicDTO {
 
-    private Long id;
-    private String nombre;
     private String imagen;
-    private List <PeliculaEntity> peliculasList;
+
+    private String nombre;
+
 }

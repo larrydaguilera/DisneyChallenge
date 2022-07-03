@@ -41,5 +41,7 @@ public class PeliculaEntity implements Serializable {
     @Column(name = "genero_id", nullable = false)
     private Long generoId;
 
+    private boolean deleted = Boolean.FALSE;
+
 
 }

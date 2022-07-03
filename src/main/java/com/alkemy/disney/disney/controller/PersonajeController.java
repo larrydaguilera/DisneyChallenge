@@ -1,15 +1,13 @@
 package com.alkemy.disney.disney.controller;
 
 
-import com.alkemy.disney.disney.dto.PersonajeDTO;
-import com.alkemy.disney.disney.entity.PersonajeEntity;
+import com.alkemy.disney.disney.dto.personaje.PersonajeBasicDTO;
+import com.alkemy.disney.disney.dto.personaje.PersonajeDTO;
 import com.alkemy.disney.disney.service.PersonajeService;
-import com.sun.xml.bind.v2.model.core.ID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.yaml.snakeyaml.events.Event;
 
 import java.util.List;
 
@@ -39,10 +37,27 @@ public class PersonajeController {
         return ResponseEntity.ok().body(personaje);
     }
 
+    @GetMapping("/filter")
+    public ResponseEntity<List<PersonajeBasicDTO>> getDetalisByfilters(
+            @RequestParam(required = false) String nombre,
+            @RequestParam(required = false) Integer edad,
+            @RequestParam(required = false) Integer peso,
+            @RequestParam(required = false) List <Long> peliculas,
+            @RequestParam(required = false, defaultValue ="ASC") String orden
+    ){
+        List<PersonajeBasicDTO> personajes = this.personajeService.getbyFilters(nombre, edad, peso, peliculas, orden);
+        return ResponseEntity.ok(personajes);
+    }
 
-    @GetMapping
-    public ResponseEntity<List<PersonajeDTO>> getAll() {
+     @GetMapping
+   public ResponseEntity<List<PersonajeDTO>> getAll() {
         List<PersonajeDTO> personajes = personajeService.getAllPersonajes();
         return ResponseEntity.ok().body(personajes);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id){
+        this.personajeService.delete(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

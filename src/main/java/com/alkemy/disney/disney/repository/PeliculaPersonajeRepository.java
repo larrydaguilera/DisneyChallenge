@@ -1,16 +1,10 @@
 package com.alkemy.disney.disney.repository;
 
-import com.alkemy.disney.disney.dto.PeliculaPersonajeDTO;
-import com.alkemy.disney.disney.entity.PeliculaEntity;
 import com.alkemy.disney.disney.entity.PeliculaPersonaje;
-import com.alkemy.disney.disney.entity.PersonajeEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -33,5 +27,12 @@ public interface PeliculaPersonajeRepository extends JpaRepository<PeliculaPerso
             "and  p.id = pp.personaje_id " +
             "and p2.id = pp.pelicula_id" ,nativeQuery = true)
     List<Long> findAllByPersonajeId(Long id);
+
+    @Query(value="insert into pelicula_personaje(pelicula_id, personaje_id)\n" +
+            "values(:peliculaId, :personajeId)", nativeQuery = true)
+    public Void agregarPersonaje(Long peliculaId, Long personajeId);
+
+    @Query(value="update genero set deleted =1  where pelicula_id= :peliculaId and personaje_id = :personajeId")
+    public Void eliminarPersonaje(Long peliculaId, Long personajeId);
 
 }

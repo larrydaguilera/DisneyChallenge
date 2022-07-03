@@ -1,4 +1,4 @@
-package com.alkemy.disney.disney.dto;
+package com.alkemy.disney.disney.dto.personaje;
 
 import com.alkemy.disney.disney.entity.GeneroEntity;
 import com.alkemy.disney.disney.entity.PeliculaEntity;
@@ -19,9 +19,9 @@ public class PersonajeDTO {
 
     private String nombre;
 
-    private Long edad;
+    private Integer edad;
 
-    private Long peso;
+    private Integer peso;
 
     private String historia;
 
